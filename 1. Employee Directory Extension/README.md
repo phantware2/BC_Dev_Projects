@@ -19,17 +19,6 @@ Create a custom table to store employee details, including name, designation, de
 - Card Page for viewing and editing employee details
 - Action to send greeting messages to employees
 
-## Installation
-
-1. Clone the repository:
-
-```bash
-git clone https://github.com/your-org/employee-directory-extension.git
-```
-
-2. Open the project in Visual Studio Code with the AL Language extension.
-3. Publish the extension to your Business Central environment.
-
 ## Usage
 
 - Navigate to the Employee Directory list page in Business Central.
