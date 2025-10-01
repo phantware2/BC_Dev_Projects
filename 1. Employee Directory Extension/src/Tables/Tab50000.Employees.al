@@ -28,7 +28,7 @@ table 50000 "Employees"
         {
             DataClassification = CustomerContent;
         }
-        field(6; "Phone Number"; Text[30])
+        field(6; "Phone No."; Text[30])
         {
             DataClassification = CustomerContent;
         }
@@ -52,7 +52,7 @@ table 50000 "Employees"
         {
             DataClassification = CustomerContent;
         }
-        field(12; Addres; Text[100])
+        field(12; Address; Text[100])
         {
             DataClassification = CustomerContent;
         }
@@ -68,7 +68,7 @@ table 50000 "Employees"
         {
             DataClassification = CustomerContent;
         }
-        field(16; Country; Code[20])
+        field(16; "Country/Region Code"; Code[20])
         {
             DataClassification = CustomerContent;
         }
@@ -77,8 +77,17 @@ table 50000 "Employees"
             DataClassification = CustomerContent;
             Editable = false;
         }
+        field(19; Gender; Option)
+        {
+            DataClassification = CustomerContent;
+            OptionMembers = Male,Female,Other;
+        }
+        field(20; "Job Title"; Text[50])
+        {
+            DataClassification = CustomerContent;
+            Caption = 'Job Title';
+        }
     }
-
     keys
     {
         key(PK; "Employee ID", Designation, Department)
