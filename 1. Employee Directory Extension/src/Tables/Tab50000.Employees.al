@@ -11,18 +11,35 @@ table 50000 "Employees"
         field(2; "First Name"; Text[50])
         {
             DataClassification = CustomerContent;
+            trigger OnValidate()
+            begin
+                "Full Name" := "First Name" + ' ' + "Middle Name" + ' ' + "Last Name";
+            end;
         }
         field(17; "Middle Name"; Text[50])
         {
             DataClassification = CustomerContent;
+            trigger OnValidate()
+            begin
+                "Full Name" := "First Name" + ' ' + "Middle Name" + ' ' + "Last Name";
+            end;
         }
         field(3; "Last Name"; Text[50])
         {
             DataClassification = CustomerContent;
+            trigger OnValidate()
+            begin
+                "Full Name" := "First Name" + ' ' + "Middle Name" + ' ' + "Last Name";
+            end;
         }
         field(4; "Date of Birth"; Date)
         {
             DataClassification = CustomerContent;
+            trigger OnValidate()
+            begin
+                if "Date of Birth" <> 0D then
+                    Age := (Date2DMY(Today(), 3) - Date2DMY("Date of Birth", 3))
+            end;
         }
         field(5; "Email"; Text[100])
         {
