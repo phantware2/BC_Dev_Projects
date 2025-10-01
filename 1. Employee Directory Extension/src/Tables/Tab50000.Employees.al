@@ -87,6 +87,11 @@ table 50000 "Employees"
             DataClassification = CustomerContent;
             Caption = 'Job Title';
         }
+        field(21; Age; Integer)
+        {
+            DataClassification = CustomerContent;
+            Editable = false;
+        }
     }
     keys
     {

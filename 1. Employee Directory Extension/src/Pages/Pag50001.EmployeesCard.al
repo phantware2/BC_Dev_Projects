@@ -35,6 +35,7 @@ page 50001 "Employees Card"
                 field("Hire Date"; Rec."Hire Date") { ApplicationArea = All; }
                 field("Active"; Rec."Active") { ApplicationArea = All; }
                 field("Designation"; Rec."Designation") { ApplicationArea = All; }
+                field(Age; Rec.Age) { ApplicationArea = All; Editable = false; }
             }
         }
     }
@@ -44,6 +45,30 @@ page 50001 "Employees Card"
         area(processing)
         {
             // Add actions if needed
+            action(SendGreeting)
+            {
+                ApplicationArea = All;
+                Caption = 'Send Greeting';
+                Image = SendMail;
+                trigger OnAction()
+                var
+                    EmailMessage: Codeunit "Email Message";
+                    Email: Codeunit Email;
+                    Subject: Text;
+                    Body: Text;
+                begin
+                    if Rec."Email" = '' then
+                        Error('Employee does not have an email address.');
+
+                    Subject := 'Greetings from HR';
+                    Body := StrSubstNo('Dear %1 %2,%3%3We wish you a wonderful day!%3%3Best regards,%3HR Team',
+                     Rec."First Name", Rec."Last Name", '<br>');
+
+                    EmailMessage.Create(Rec."Email", Subject, Body, true);
+                    Email.Send(EmailMessage);
+                    Message('Greeting message sent to %1.', Rec."Full Name");
+                end;
+            }
         }
     }
 }

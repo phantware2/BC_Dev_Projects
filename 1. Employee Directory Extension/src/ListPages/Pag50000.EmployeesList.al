@@ -4,6 +4,8 @@ page 50000 "Employees List"
     SourceTable = Employees;
     ApplicationArea = All;
     UsageCategory = Lists;
+    CardPageId = "Employees Card";
+    Editable = false;
 
     layout
     {
