@@ -72,6 +72,11 @@ table 50000 "Employees"
         {
             DataClassification = CustomerContent;
         }
+        field(18; "Full Name"; Text[151])
+        {
+            DataClassification = CustomerContent;
+            Editable = false;
+        }
     }
 
     keys
