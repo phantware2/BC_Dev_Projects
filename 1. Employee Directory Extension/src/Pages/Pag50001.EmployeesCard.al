@@ -61,8 +61,8 @@ page 50001 "Employees Card"
                         Error('Employee does not have an email address.');
 
                     Subject := 'Greetings from HR';
-                    Body := StrSubstNo('Dear %1 %2,%3%3We wish you a wonderful day!%3%3Best regards,%3HR Team',
-                     Rec."First Name", Rec."Last Name", '<br>');
+                    Body := StrSubstNo('Dear %1 %2 %3, %4%4We wish you a day filled with laughter and happiness, and a year ahead that brings you great success! %4%4Best regards,%4%4HR Team',
+                     Rec."First Name", Rec."Middle Name", Rec."Last Name", '<br>');
 
                     EmailMessage.Create(Rec."Email", Subject, Body, true);
                     Email.Send(EmailMessage);
