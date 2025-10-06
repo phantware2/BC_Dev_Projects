@@ -3,6 +3,7 @@ page 50002 "Expense Categories"
     PageType = List;
     SourceTable = "Expense Category";
     Caption = 'Expense Categories';
+    UsageCategory = Lists;
     ApplicationArea = All;
 
     layout

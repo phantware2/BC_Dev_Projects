@@ -2,6 +2,7 @@ page 50005 "Expense List"
 {
     PageType = List;
     SourceTable = "Expense Header";
+    UsageCategory = Lists;
     Caption = 'Expense List';
     ApplicationArea = All;
     CardPageId = "Expense Card";

@@ -3,7 +3,6 @@ page 50003 "Expense Card"
     PageType = Card;
     SourceTable = "Expense Header";
     Caption = 'Expense Card';
-    ApplicationArea = All;
 
     layout
     {
