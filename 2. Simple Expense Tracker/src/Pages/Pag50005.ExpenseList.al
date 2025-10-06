@@ -6,6 +6,7 @@ page 50005 "Expense List"
     Caption = 'Expense List';
     ApplicationArea = All;
     CardPageId = "Expense Card";
+    Editable = false;
 
     layout
     {
