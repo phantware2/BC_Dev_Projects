@@ -12,6 +12,7 @@ table 50003 "Expense Line"
         field(2; "Line No."; Integer)
         {
             Caption = 'Line No.';
+            Editable = false;
         }
         field(3; "Expense Category"; Code[20])
         {
@@ -49,7 +50,42 @@ table 50003 "Expense Line"
             else
                 "Line No." := 10000;
         end;
+
+        if ExpenseHeader.Get("Document No.") then begin
+            RecalculateTotalAmount();
+        end;
     end;
+
+    trigger OnModify()
+    begin
+        if ExpenseHeader.Get("Document No.") then begin
+            RecalculateTotalAmount();
+        end;
+    end;
+
+    trigger OnDelete()
+    begin
+        if ExpenseHeader.Get("Document No.") then begin
+            RecalculateTotalAmount();
+        end;
+    end;
+
+    procedure RecalculateTotalAmount()
+    begin
+        // Recalculate total amount on header
+        ExpenseHeader.Get("Document No.");
+        ExpenseLine.SetRange("Document No.", "Document No.");
+        ExpenseHeader."Total Amount" := 0;
+        if ExpenseLine.FindSet() then
+            repeat
+                ExpenseHeader."Total Amount" += ExpenseLine.Amount;
+            until ExpenseLine.Next() = 0;
+
+        ExpenseHeader.Modify(true);
+    end;
+
+
+
 
     // trigger OnInsert()
     // var
@@ -66,4 +102,7 @@ table 50003 "Expense Line"
     //         until ExpenseLine.Next() = 0;
     //     ExpenseHeader.Modify();
     // end;
+    var
+        ExpenseHeader: Record "Expense Header";
+        ExpenseLine: Record "Expense Line";
 }
