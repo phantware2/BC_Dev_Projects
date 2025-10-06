@@ -37,21 +37,33 @@ table 50003 "Expense Line"
         key(PK; "Document No.", "Line No.") { Clustered = true; }
     }
 
-
-
     trigger OnInsert()
     var
-        ExpenseHeader: Record "Expense Header";
-        ExpenseLine: Record "Expense Line";
+        LastLine: Record "Expense Line";
     begin
-        // Recalculate total amount on header
-        ExpenseHeader.Get("Document No.");
-        ExpenseLine.SetRange("Document No.", "Document No.");
-        ExpenseHeader."Total Amount" := 0;
-        if ExpenseLine.FindSet() then
-            repeat
-                ExpenseHeader."Total Amount" += ExpenseLine.Amount;
-            until ExpenseLine.Next() = 0;
-        ExpenseHeader.Modify();
+        if "Line No." = 0 then begin
+            LastLine.Reset();
+            LastLine.SetRange("Document No.", "Document No.");
+            if LastLine.FindLast() then
+                "Line No." := LastLine."Line No." + 10000
+            else
+                "Line No." := 10000;
+        end;
     end;
+
+    // trigger OnInsert()
+    // var
+    //     ExpenseHeader: Record "Expense Header";
+    //     ExpenseLine: Record "Expense Line";
+    // begin
+    //     // Recalculate total amount on header
+    //     ExpenseHeader.Get("Document No.");
+    //     ExpenseLine.SetRange("Document No.", "Document No.");
+    //     ExpenseHeader."Total Amount" := 0;
+    //     if ExpenseLine.FindSet() then
+    //         repeat
+    //             ExpenseHeader."Total Amount" += ExpenseLine.Amount;
+    //         until ExpenseLine.Next() = 0;
+    //     ExpenseHeader.Modify();
+    // end;
 }
