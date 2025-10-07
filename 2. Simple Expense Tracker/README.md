@@ -1,4 +1,4 @@
-# Simple Expense Tracker (Business Central AL Project)
+# Simple Expense Tracker
 
 This AL project adds an **Expense** table to Microsoft Dynamics 365 Business Central for tracking office expenditures. It includes both **List** and **Card** pages for efficient data entry and management.
 

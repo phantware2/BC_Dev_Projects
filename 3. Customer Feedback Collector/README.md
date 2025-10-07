@@ -1,4 +1,4 @@
-# Customer Feedback Collector (AL Business Central)
+# Customer Feedback Collector
 
 This project extends Microsoft Dynamics 365 Business Central to help sales teams efficiently capture and follow up on customer feedback.
 
