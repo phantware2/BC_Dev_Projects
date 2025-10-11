@@ -3,6 +3,7 @@ page 50003 "Expense Card"
     PageType = Card;
     SourceTable = "Expense Header";
     Caption = 'Expense Card';
+    RefreshOnActivate = true;
 
     layout
     {
@@ -20,8 +21,34 @@ page 50003 "Expense Card"
             part(Lines; "Expense Lines Subpage")
             {
                 SubPageLink = "Document No." = field("No.");
+                UpdatePropagation = Both;
                 ApplicationArea = All;
             }
         }
     }
+
+
+    trigger OnDeleteRecord(): Boolean
+    var
+        ExpenseLine: Record "Expense Line";
+    begin
+        if Rec."No." <> '' then begin
+            if Rec.Status = Rec.Status::Open then begin
+                // Delete associated expense lines
+                if Confirm('Are you sure you want to delete this document?', true) then begin
+                    ExpenseLine.SetRange("Document No.", Rec."No.");
+                    if ExpenseLine.FindSet() then
+                        ExpenseLine.DeleteAll();
+                end
+                else begin
+                    Message('Delete operation cancelled.');
+                    exit(false);
+                end;
+            end
+            else begin
+                Message('Only documents with status "Open" can be deleted.');
+                exit(false);
+            end;
+        end;
+    end;
 }

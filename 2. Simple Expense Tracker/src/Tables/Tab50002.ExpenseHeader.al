@@ -28,6 +28,8 @@ table 50101 "Expense Header"
         {
             Caption = 'Total Amount';
             Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = Sum("Expense Line".Amount WHERE("Document No." = FIELD("No.")));
         }
         field(5; "Status"; Option)
         {

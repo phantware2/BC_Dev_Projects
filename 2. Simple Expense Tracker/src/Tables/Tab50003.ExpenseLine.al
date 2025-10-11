@@ -38,51 +38,7 @@ table 50003 "Expense Line"
         key(PK; "Document No.", "Line No.") { Clustered = true; }
     }
 
-    trigger OnInsert()
-    var
-        LastLine: Record "Expense Line";
-    begin
-        if "Line No." = 0 then begin
-            LastLine.Reset();
-            LastLine.SetRange("Document No.", "Document No.");
-            if LastLine.FindLast() then
-                "Line No." := LastLine."Line No." + 10000
-            else
-                "Line No." := 10000;
-        end;
 
-        if ExpenseHeader.Get("Document No.") then begin
-            RecalculateTotalAmount();
-        end;
-    end;
-
-    trigger OnModify()
-    begin
-        if ExpenseHeader.Get("Document No.") then begin
-            RecalculateTotalAmount();
-        end;
-    end;
-
-    trigger OnDelete()
-    begin
-        if ExpenseHeader.Get("Document No.") then begin
-            RecalculateTotalAmount();
-        end;
-    end;
-
-    procedure RecalculateTotalAmount()
-    begin
-        // Recalculate total amount on header
-        ExpenseHeader.Get("Document No.");
-        ExpenseLine.SetRange("Document No.", "Document No.");
-        ExpenseHeader."Total Amount" := 0;
-        if ExpenseLine.FindSet() then
-            repeat
-                ExpenseHeader."Total Amount" += ExpenseLine.Amount;
-            until ExpenseLine.Next() = 0;
-
-        ExpenseHeader.Modify(true);
-    end;
 
 
 
