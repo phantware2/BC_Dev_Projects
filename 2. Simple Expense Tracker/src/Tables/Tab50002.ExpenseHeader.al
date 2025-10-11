@@ -34,8 +34,8 @@ table 50101 "Expense Header"
         field(5; "Status"; Option)
         {
             Caption = 'Status';
-            OptionMembers = Open,Submitted,Approved,Rejected;
-            OptionCaption = 'Open,Submitted,Approved,Rejected';
+            OptionMembers = Open,"Pending Approval",Released,Cancelled;
+            OptionCaption = 'Open,"Pending Approval",Released,Cancelled';
         }
         field(6; "Job Title"; Text[50])
         {
