@@ -18,18 +18,20 @@ table 50003 "Expense Line"
         {
             Caption = 'Expense Category';
             TableRelation = "Expense Category".Code;
-        }
-        field(4; "Description"; Text[100])
-        {
-            Caption = 'Description';
 
             trigger OnValidate()
             var
                 expCat: Record "Expense Category";
             begin
-                if "Expense Category" <> '' then
+                if expCat.Get("Expense Category") then
                     Description := expCat.Description
+                else
+                    Description := '';
             end;
+        }
+        field(4; "Description"; Text[100])
+        {
+            Caption = 'Description';
         }
         field(5; "Amount"; Decimal)
         {

@@ -53,7 +53,7 @@ table 50000 "Employees"
         {
             DataClassification = CustomerContent;
         }
-        field(8; "Department"; Text[50])
+        field(8; Department; Text[50])
         {
             DataClassification = CustomerContent;
         }
