@@ -17,8 +17,10 @@ page 50003 "Expense Card"
                 field("Expense Date"; Rec."Expense Date") { ApplicationArea = All; }
                 field("Total Amount"; Rec."Total Amount") { ApplicationArea = All; }
                 field("Status"; Rec."Status") { ApplicationArea = All; }
+                field(Department; Rec.Department) { ApplicationArea = All; }
+                field("Job Title"; Rec."Job Title") { ApplicationArea = All; }
+                field(Designation; Rec.Designation) { ApplicationArea = All; }
             }
-
             part(Lines; "Expense Lines Subpage")
             {
                 SubPageLink = "Document No." = field("No.");

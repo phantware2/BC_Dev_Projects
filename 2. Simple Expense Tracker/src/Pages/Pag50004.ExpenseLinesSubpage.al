@@ -4,7 +4,7 @@ page 50004 "Expense Lines Subpage"
     SourceTable = "Expense Line";
     Caption = 'Expense Lines';
     AutoSplitKey = true;
-    MultipleNewLines = true;
+    // MultipleNewLines = true;
     DelayedInsert = true;
     RefreshOnActivate = true;
 
