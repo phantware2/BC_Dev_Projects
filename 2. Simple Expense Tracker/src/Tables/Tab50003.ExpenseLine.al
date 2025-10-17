@@ -22,6 +22,14 @@ table 50003 "Expense Line"
         field(4; "Description"; Text[100])
         {
             Caption = 'Description';
+
+            trigger OnValidate()
+            var
+                expCat: Record "Expense Category";
+            begin
+                if "Expense Category" <> '' then
+                    Description := expCat.Description
+            end;
         }
         field(5; "Amount"; Decimal)
         {
