@@ -49,6 +49,10 @@ table 50101 "Expense Header"
         {
             DataClassification = CustomerContent;
         }
+        field(9; "Employee Name"; Text[50])
+        {
+            DataClassification = CustomerContent;
+        }
     }
 
     keys
