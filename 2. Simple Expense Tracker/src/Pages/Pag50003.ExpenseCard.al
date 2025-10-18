@@ -28,8 +28,26 @@ page 50003 "Expense Card"
                 ApplicationArea = All;
             }
         }
+        area(factboxes)
+        {
+            // part(ExpenseStatistics; "Expense Statistics FactBox")
+            // {
+            //     ApplicationArea = All;
+            // }
+            // part(ApprovalStatus; "Approval Status FactBox")
+            // {
+            //     ApplicationArea = All;
+            // }
+            part(Attachments; "Doc. Attachment List Factbox")
+            {
+                ApplicationArea = All;
+            }
+            part(EmailAttachments; "Email Attachments")
+            {
+                ApplicationArea = All;
+            }
+        }
     }
-
 
     trigger OnDeleteRecord(): Boolean
     var
