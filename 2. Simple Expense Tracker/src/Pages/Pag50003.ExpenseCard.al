@@ -41,6 +41,7 @@ page 50003 "Expense Card"
             part(Attachments; "Doc. Attachment List Factbox")
             {
                 ApplicationArea = All;
+                SubPageLink = "Table ID" = CONST(Database::"Expense Header"), "No." = field("No.");
             }
             part(EmailAttachments; "Email Attachments")
             {
