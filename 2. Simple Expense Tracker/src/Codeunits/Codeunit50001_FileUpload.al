@@ -6,6 +6,7 @@ codeunit 50001 "File Upload"
 
     var
         ExpenseRecord: Record "Expense Header";
+        ExpenseLineRecord: Record "Expense Line";
     begin
         case DocumentAttachment."Table ID" of
 
@@ -14,6 +15,14 @@ codeunit 50001 "File Upload"
                     RecRef.Open(Database::"Expense Header");
                     if ExpenseRecord.Get(DocumentAttachment."No.") then
                         RecRef.GetTable(ExpenseRecord);
+                    ExpenseLineRecord.Reset();
+                    ExpenseLineRecord.SetRange("Document No.", DocumentAttachment."No.");
+                    if ExpenseLineRecord.Find() then begin
+                        repeat
+                            ExpenseLineRecord."Receipt Attached" := true;
+                            ExpenseLineRecord.Modify();
+                        until ExpenseLineRecord.Next() = 0;
+                    end;
                 end;
         end;
     end;
@@ -22,7 +31,6 @@ codeunit 50001 "File Upload"
     local procedure OnAfterTableHasNumberFieldPrimaryKey(TableNo: Integer; var FieldNo: Integer; var Result: Boolean)
     var
         ExpenseRecord: Record "Expense Header";
-
     begin
         begin
             case TableNo of
