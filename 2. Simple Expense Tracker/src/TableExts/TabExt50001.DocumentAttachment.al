@@ -1,4 +1,4 @@
-tableextension 50010 MyExtension extends "Document Attachment"
+tableextension 50010 DocumentAttachment extends "Document Attachment"
 {
     fields
     {
