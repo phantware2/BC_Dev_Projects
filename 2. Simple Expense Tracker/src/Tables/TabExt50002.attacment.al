@@ -19,7 +19,7 @@ tableextension 50010 MyExtension extends "Document Attachment"
         myInt: Integer;
 
 
-    trigger OnAfterDelete()
+    trigger OnBeforeDelete()
     var
         ExpenseLineRecord: Record "Expense Line";
         DocAttc: Record "Document Attachment";
@@ -38,12 +38,10 @@ tableextension 50010 MyExtension extends "Document Attachment"
                             repeat
                                 ExpenseLineRecord."Receipt Attached" := false;
                                 ExpenseLineRecord.Modify();
-                                Message('I got here after modification');
                             until ExpenseLineRecord.Next() = 0;
                         end;
                     end;
                 end;
         end;
-        Message('I got here after delete!');
     end;
 }
