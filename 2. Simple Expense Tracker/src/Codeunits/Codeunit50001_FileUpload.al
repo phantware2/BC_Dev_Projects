@@ -6,7 +6,6 @@ codeunit 50001 "File Upload"
 
     var
         ExpenseRecord: Record "Expense Header";
-        ExpenseLineRecord: Record "Expense Line";
     begin
         case DocumentAttachment."Table ID" of
 
@@ -15,14 +14,6 @@ codeunit 50001 "File Upload"
                     RecRef.Open(Database::"Expense Header");
                     if ExpenseRecord.Get(DocumentAttachment."No.") then
                         RecRef.GetTable(ExpenseRecord);
-                    ExpenseLineRecord.Reset();
-                    ExpenseLineRecord.SetRange("Document No.", DocumentAttachment."No.");
-                    if ExpenseLineRecord.Find() then begin
-                        repeat
-                            ExpenseLineRecord."Receipt Attached" := true;
-                            ExpenseLineRecord.Modify();
-                        until ExpenseLineRecord.Next() = 0;
-                    end;
                 end;
         end;
     end;
@@ -40,6 +31,30 @@ codeunit 50001 "File Upload"
                         FieldNo := ExpenseRecord.FieldNo("No.");
                     end
             end;
+        end;
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Document Attachment", OnBeforeInsertAttachment, '', false, false)]
+    local procedure OnBeforeInsertAttachment(var DocumentAttachment: Record "Document Attachment")
+    var
+        ExpenseLineRecord: Record "Expense Line";
+        ExpenseRecord: Record "Expense Header";
+    begin
+        case DocumentAttachment."Table ID" of
+            Database::"Expense Header":
+                begin
+                    ExpenseLineRecord.Reset();
+                    ExpenseLineRecord.SetRange("Document No.", DocumentAttachment."No.");
+                    ExpenseLineRecord.SetRange("Receipt Attached", false);
+                    if ExpenseLineRecord.FindSet() then begin
+                        // repeat
+                        // ExpenseLineRecord."Receipt Attached" := true;
+                        ExpenseLineRecord.ModifyAll("Receipt Attached", true);
+                        // // Message('Expense Line %1 updated: Receipt Attached set to true.', ExpenseLineRecord."Line No.");
+                        // Message('document attachment inserted for Document No.: %1', DocumentAttachment."File Name");
+                        // until ExpenseLineRecord.Next() = 0;
+                    end;
+                end;
         end;
     end;
 }
