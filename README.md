@@ -44,6 +44,7 @@ cd BC_Dev_Projects
 - [8. Vendor Performance Dashboard](./8.%20Vendor%20Performance%20Dashboard/)
 - [9. Customer Credit Limit Alert](./9.%20Customer%20Credit%20Limit%20Alert/)
 - [10. Power App & Power Automate Integration with Business Central](./10.%20Power%20App%20&%20Power%20Automate%20Integration%20with%20Business%20Central/)
+- [11. Branch Stock Request](./11.%20Branch%20Stock%20Request/)
 
 * Each folder contains its own documentation and setup instructions.
 
