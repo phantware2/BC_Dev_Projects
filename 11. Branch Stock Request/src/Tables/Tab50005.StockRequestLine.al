@@ -234,7 +234,7 @@ table 50005 "Stock Request Line"
     end;
 
     var
-        Header: Record "Stock Request";
+        Header: Record "Stock Request Header";
         InStoreStockReqLine: Record "Stock Request Line";
         DimMgt: Codeunit DimensionManagement;
         Item: Record 27;
@@ -293,16 +293,16 @@ table 50005 "Stock Request Line"
 
     procedure UpdateLine();
     begin
-        InStoreStockReqHeadeRec.RESET;
-        IF InStoreStockReqHeadeRec.GET("Document No.") THEN BEGIN
-            Rec.Validate("Shortcut Dimension 1 Code", InStoreStockReqHeadeRec."Shortcut Dimension 1 Code");
+        StockReqHeadeRec.RESET;
+        IF StockReqHeadeRec.GET("Document No.") THEN BEGIN
+            Rec.Validate("Shortcut Dimension 1 Code", StockReqHeadeRec."Shortcut Dimension 1 Code");
             ValidateShortcutDimCode(1, "Shortcut Dimension 1 Code");
-            Rec.Validate("Shortcut Dimension 2 Code", InStoreStockReqHeadeRec."Shortcut Dimension 2 Code");
+            Rec.Validate("Shortcut Dimension 2 Code", StockReqHeadeRec."Shortcut Dimension 2 Code");
             ValidateShortcutDimCode(2, "Shortcut Dimension 2 Code");
         END;
     end;
 
     var
-        InStoreStockReqHeadeRec: Record "Stock Request";
+        StockReqHeadeRec: Record "Stock Request Header";
 }
 
