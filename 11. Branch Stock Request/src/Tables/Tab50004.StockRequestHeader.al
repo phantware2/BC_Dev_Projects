@@ -251,7 +251,7 @@ table 50004 "Stock Request Header"
     var
         WarehouseSetup: Record "Warehouse Setup";
         StockReqLine: Record "Stock Request Line";
-        NoSeriesMgt: Codeunit "No. Series";
+        NoSeries: Codeunit "No. Series";
         DimMgt: Codeunit DimensionManagement;
         HideValidationDialog: Boolean;
         Text000: Label 'You cannot rename a %1.';

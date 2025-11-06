@@ -235,7 +235,7 @@ table 50005 "Stock Request Line"
 
     var
         Header: Record "Stock Request Header";
-        InStoreStockReqLine: Record "Stock Request Line";
+        StockReqLine: Record "Stock Request Line";
         DimMgt: Codeunit DimensionManagement;
         Item: Record 27;
         Text001: Label 'You cannot rename a %1.';
@@ -275,9 +275,9 @@ table 50005 "Stock Request Line"
     var
         OldDimSetID: Integer;
     begin
-        InStoreStockReqLine.RESET;
-        InStoreStockReqLine.SETRANGE("Document No.", "Document No.");
-        IF InStoreStockReqLine.FINDFIRST THEN;
+        StockReqLine.RESET;
+        StockReqLine.SETRANGE("Document No.", "Document No.");
+        IF StockReqLine.FINDFIRST THEN;
 
         TESTFIELD("Document No.");
         TESTFIELD("Line No.");
