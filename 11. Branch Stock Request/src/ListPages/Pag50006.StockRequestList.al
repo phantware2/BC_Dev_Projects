@@ -7,8 +7,7 @@ page 50006 "Stock Request List"
     UsageCategory = Lists;
     ApplicationArea = All;
     SourceTable = "Stock Request Header";
-    SourceTableView = SORTING(Status, "Store No.")
-    WHERE(Status = filter(Open | "Pending Approval"));
+    SourceTableView = SORTING(Status, "Store No.") WHERE(Status = filter(Open | "Pending Approval"));
 
     layout
     {
