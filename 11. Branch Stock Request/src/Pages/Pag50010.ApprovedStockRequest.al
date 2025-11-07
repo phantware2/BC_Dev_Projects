@@ -1,6 +1,6 @@
 page 50010 "Approved Stock Request"
 {
-    Caption = 'InStore Stock Req. Released';
+    Caption = 'Approved Stock Request';
     PageType = Document;
     DeleteAllowed = false;
     InsertAllowed = false;
@@ -124,7 +124,7 @@ page 50010 "Approved Stock Request"
                 Caption = 'Create Transfer Order';
                 trigger OnAction()
                 var
-                    InStoreStockReqMgt: Codeunit "InStore Stock Req Mgt";
+                    InStoreStockReqMgt: Codeunit "Store Stock Req Mgt";
                 begin
                     if not Confirm('Do you want to Create Transfer Order!', false, true) then
                         exit;

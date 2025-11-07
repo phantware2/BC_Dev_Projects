@@ -231,8 +231,8 @@ table 50004 "Stock Request Header"
     begin
         WarehouseSetup.GET();
         IF "No." = '' THEN BEGIN
-            // WarehouseSetup.TESTFIELD(WarehouseSetup."Stock Req. Doc. No. Series");
-            // "No." := NoSeriesMgt.GetNextNo(WarehouseSetup."Stock Req. Doc. No. Series", 0D, TRUE);
+            WarehouseSetup.TESTFIELD(WarehouseSetup."Stock Request No.");
+            "No." := NoSeries.GetNextNo(WarehouseSetup."Stock Request No.", 0D, TRUE);
         END;
         VALIDATE("Document Date", WORKDATE);
         "Created By" := UserId;
