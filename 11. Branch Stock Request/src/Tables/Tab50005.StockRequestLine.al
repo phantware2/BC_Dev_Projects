@@ -1,10 +1,11 @@
 table 50005 "Stock Request Line"
 {
-    Caption = 'InStore Stock Req. Line';
+    Caption = 'Stock Request Line';
     DataClassification = CustomerContent;
 
     fields
     {
+
         field(1; "Document No."; Code[20])
         {
             Caption = 'Document No.';
