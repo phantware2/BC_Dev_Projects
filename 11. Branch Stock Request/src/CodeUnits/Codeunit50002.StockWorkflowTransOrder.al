@@ -26,14 +26,14 @@ codeunit 50002 "StockWorkflowTransOrder"
         exit(true)
     end;
 
-    // procedure CheckProductionOrderApprovalWorkflowEnabledValidate(var ProductionOrder: Record "InStore Stock Req. Header"): Boolean;
-    // var
-    //     WorkflowManagement: Codeunit "Workflow Management";
-    //     CheckWorkFlowEnable: Boolean;
-    // begin
-    //     CheckWorkFlowEnable := WorkflowManagement.CanExecuteWorkflow(ProductionOrder, RunWorkflowOnSendBranchStockRequestForApprovalCode());
-    //     exit(CheckWorkFlowEnable);
-    // end;
+    procedure CheckProductionOrderApprovalWorkflowEnabledValidate(var ProductionOrder: Record "Stock Request Header"): Boolean;
+    var
+        WorkflowManagement: Codeunit "Workflow Management";
+        CheckWorkFlowEnable: Boolean;
+    begin
+        CheckWorkFlowEnable := WorkflowManagement.CanExecuteWorkflow(ProductionOrder, RunWorkflowOnSendBranchStockRequestForApprovalCode());
+        exit(CheckWorkFlowEnable);
+    end;
 
     procedure RunWorkflowOnSendBranchStockRequestForApprovalCode(): Code[128]
     begin
@@ -102,8 +102,7 @@ codeunit 50002 "StockWorkflowTransOrder"
 
     // WorkFlow Response Handling Eventsubscriber ****ST****
     [EventSubscriber(ObjectType::Codeunit, CodeUnit::"Workflow Response Handling", 'OnOpenDocument', '', true, true)]
-    local procedure OnOpenDocument(RecRef: RecordRef;
-    var Handled: Boolean)
+    local procedure OnOpenDocument(RecRef: RecordRef; var Handled: Boolean)
     var
         InstoreHeader: Record "Stock Request Header";
         InstoreHeader1: Record "Stock Request Header";
@@ -206,6 +205,8 @@ codeunit 50002 "StockWorkflowTransOrder"
         Exit(StrSubstNo(VouchertypeCondinText, Workflowsetup.Encode(BudgetHeaerRec.GetView(false))));
     end;
 
+    // ---- Check this 1
+
     // local procedure GetConditionalCardPageID(RecordRef: RecordRef): Integer
     // var
     // begin
@@ -226,54 +227,64 @@ codeunit 50002 "StockWorkflowTransOrder"
     //     EXIT(PAGE::"Production BOM");
     // end;
 
-    // [EventSubscriber(ObjectType::Codeunit, CodeUnit::"Approvals Mgmt.", 'OnApproveApprovalRequest', '', true, true)]
-    // local procedure OnApproveApprovalRequest(var ApprovalEntry: Record "Approval Entry")
-    // var
-    //     ApprovalEntry1: Record "Approval Entry";
-    //     Rec_ProductionBOMHeader: Record "InStore Stock Req. Header";
-    // begin
-    //     if ApprovalEntry."Table ID" = Database::"InStore Stock Req. Header" then begin
-    //         ApprovalEntry1.reset;
-    //         ApprovalEntry1.setrange(ApprovalEntry1."Document No.", ApprovalEntry."Document No.");
-    //         if ApprovalEntry1.FindLast then begin
-    //             if ApprovalEntry."Entry No." = ApprovalEntry1."Entry No." then begin
-    //                 if Rec_ProductionBOMHeader.get(ApprovalEntry1."Document No.") then begin
-    //                     Rec_ProductionBOMHeader.Status := Rec_ProductionBOMHeader.Status::Released;
-    //                     Rec_ProductionBOMHeader.Modify;
-    //                 end;
-    //             end;
-    //         end;
-    //     end;
+    // ---- Check this 1
+
+    // ---- Check this 2
+    [EventSubscriber(ObjectType::Codeunit, CodeUnit::"Approvals Mgmt.", 'OnApproveApprovalRequest', '', true, true)]
+    local procedure OnApproveApprovalRequest(var ApprovalEntry: Record "Approval Entry")
+    var
+        ApprovalEntry1: Record "Approval Entry";
+        Rec_ProductionBOMHeader: Record "Stock Request Header";
+    begin
+        if ApprovalEntry."Table ID" = Database::"Stock Request Header" then begin
+            ApprovalEntry1.reset;
+            ApprovalEntry1.setrange(ApprovalEntry1."Document No.", ApprovalEntry."Document No.");
+            if ApprovalEntry1.FindLast then begin
+                if ApprovalEntry."Entry No." = ApprovalEntry1."Entry No." then begin
+                    if Rec_ProductionBOMHeader.get(ApprovalEntry1."Document No.") then begin
+                        Rec_ProductionBOMHeader.Status := Rec_ProductionBOMHeader.Status::Released;
+                        Rec_ProductionBOMHeader.Modify;
+                    end;
+                end;
+            end;
+        end;
 
 
-    // end;
+    end;
 
-    // [EventSubscriber(ObjectType::Codeunit, CodeUnit::"Approvals Mgmt.", 'OnAfterRejectSelectedApprovalRequest', '', true, true)]
-    // local procedure OnAfterRejectSelectedApprovalRequest(var ApprovalEntry: Record "Approval Entry")
-    // var
-    //     Rec_ProductionBOMHeader: Record "InStore Stock Req. Header";
-    // begin
+    // ---- Check this 2
 
-    //     if ApprovalEntry."Table ID" = Database::"InStore Stock Req. Header" then begin
-    //         Rec_ProductionBOMHeader.reset;
-    //         if Rec_ProductionBOMHeader.get(ApprovalEntry."Document No.") then begin
-    //             Rec_ProductionBOMHeader.Status := Rec_ProductionBOMHeader.Status::Open;
-    //             Rec_ProductionBOMHeader.Modify;
-    //         end;
-    //     end;
-    // end;
+    // ---- Check this 3
+    [EventSubscriber(ObjectType::Codeunit, CodeUnit::"Approvals Mgmt.", 'OnAfterRejectSelectedApprovalRequest', '', true, true)]
+    local procedure OnAfterRejectSelectedApprovalRequest(var ApprovalEntry: Record "Approval Entry")
+    var
+        Rec_ProductionBOMHeader: Record "Stock Request Header";
+    begin
 
-    // [EventSubscriber(ObjectType::Codeunit, CodeUnit::"Approvals Mgmt.", 'OnAfterPopulateApprovalEntryArgument', '', true, true)]
-    // local procedure OnAfterPopulateApprovalEntryArgument(WorkflowStepInstance: Record "Workflow Step Instance"; var ApprovalEntryArgument: Record "Approval Entry"; var IsHandled: Boolean; var RecRef: RecordRef)
-    // var
-    //     Rec_ProductionBOMHeader: Record "InStore Stock Req. Header";
-    // begin
-    //     case RecRef.Number of
-    //         Database::"InStore Stock Req. Header":
-    //             begin
-    //                 RecRef.SetTable((Rec_ProductionBOMHeader));
-    //                 ApprovalEntryArgument."Document No." := Rec_ProductionBOMHeader."No.";
-    //             end;
-    //     end;
-    // end;
+        if ApprovalEntry."Table ID" = Database::"Stock Request Header" then begin
+            Rec_ProductionBOMHeader.reset;
+            if Rec_ProductionBOMHeader.get(ApprovalEntry."Document No.") then begin
+                Rec_ProductionBOMHeader.Status := Rec_ProductionBOMHeader.Status::Open;
+                Rec_ProductionBOMHeader.Modify;
+            end;
+        end;
+
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, CodeUnit::"Approvals Mgmt.", 'OnAfterPopulateApprovalEntryArgument', '', true, true)]
+    local procedure OnAfterPopulateApprovalEntryArgument(WorkflowStepInstance: Record "Workflow Step Instance"; var ApprovalEntryArgument: Record "Approval Entry"; var IsHandled: Boolean; var RecRef: RecordRef)
+    var
+        Rec_ProductionBOMHeader: Record "Stock Request Header";
+    begin
+        case RecRef.Number of
+            Database::"Stock Request Header":
+                begin
+                    RecRef.SetTable((Rec_ProductionBOMHeader));
+                    ApprovalEntryArgument."Document No." := Rec_ProductionBOMHeader."No.";
+                end;
+        end;
+    end;
+    // ---- Check this 3
+
+
 }
