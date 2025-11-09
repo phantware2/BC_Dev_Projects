@@ -9,37 +9,39 @@ table 50004 "Stock Request Header"
         field(1; "No."; Code[20])
         {
             Caption = 'No.';
+            Editable = false;
         }
-        field(10; "Store No."; Code[10])
+        field(2; "Store No."; Code[10])
         {
             Caption = 'Request Location';
             TableRelation = Location.Code;
         }
-        field(20; "Document Date"; Date)
+        field(3; "Document Date"; Date)
         {
             Caption = 'Document Date';
         }
-        field(30; Status; Enum "Sales Document Status")
+        field(4; Status; Enum "Sales Document Status")
         {
             Caption = 'Status';
+            Editable = false;
         }
-        field(31; "Req. Status"; Option)
+        field(5; "Req. Status"; Option)
         {
             Caption = 'Req. Status';
             OptionCaption = 'New,Sent,Accepted,Declined';
             OptionMembers = New,Sent,Accepted,Declined;
         }
-        field(40; "Reference Type"; Option)
+        field(6; "Reference Type"; Option)
         {
             Caption = 'Reference Type';
             OptionCaption = ' ,Transfer,Purchase,Replenishment';
             OptionMembers = " ",Transfer,Purchase,Replenishment;
         }
-        field(41; "Reference No."; Code[20])
+        field(7; "Reference No."; Code[20])
         {
             Caption = 'Reference No.';
         }
-        field(45; "Document Type"; Option)
+        field(8; "Document Type"; Option)
         {
             Caption = 'Document Type';
             OptionCaption = 'Purchase Order,Transfer Order';
@@ -52,7 +54,7 @@ table 50004 "Stock Request Header"
                 VALIDATE("Process Type", "Process Type"::Create);
             end;
         }
-        field(46; "Process Type"; Option)
+        field(9; "Process Type"; Option)
         {
             Caption = 'Process Type';
             OptionCaption = 'Create,Replenish';
@@ -69,7 +71,7 @@ table 50004 "Stock Request Header"
                 "Plan.Stock Demand Type" := "Plan.Stock Demand Type"::"Transfer Order";
             end;
         }
-        field(50; "Vendor No."; Code[20])
+        field(10; "Vendor No."; Code[20])
         {
             Caption = 'Vendor No.';
             TableRelation = Vendor;
@@ -85,7 +87,7 @@ table 50004 "Stock Request Header"
                 "Plan.Stock Demand Type" := "Plan.Stock Demand Type"::" ";
             end;
         }
-        field(51; "From Store No."; Code[20])
+        field(11; "From Store No."; Code[20])
         {
             Caption = 'From Store Location';
             TableRelation = Location.Code;
@@ -100,7 +102,7 @@ table 50004 "Stock Request Header"
                 "Plan.Stock Demand Type" := "Plan.Stock Demand Type"::" ";
             end;
         }
-        field(52; "In-Transit Code"; Code[10])
+        field(12; "In-Transit Code"; Code[10])
         {
             Caption = 'In-Transit Code';
             TableRelation = Location WHERE("Use As In-Transit" = CONST(true));
@@ -115,7 +117,7 @@ table 50004 "Stock Request Header"
                 "Plan.Stock Demand Type" := "Plan.Stock Demand Type"::" ";
             end;
         }
-        field(53; "Plan.Stock Demand Type"; Option)
+        field(13; "Plan.Stock Demand Type"; Option)
         {
             Caption = 'Plan.Stock Demand Type';
             OptionCaption = ' ,Transfer Order,PO to Store,PO to Whse w/X-Dock';
@@ -131,11 +133,11 @@ table 50004 "Stock Request Header"
                 "In-Transit Code" := '';
             end;
         }
-        field(100; "Created By"; Code[50])
+        field(14; "Created By"; Code[50])
         {
             DataClassification = CustomerContent;
         }
-        field(101; "Shortcut Dimension 1 Code"; Code[20])
+        field(15; "Shortcut Dimension 1 Code"; Code[20])
         {
             Caption = 'Requisition Division';
             CaptionClass = '1,2,1';
@@ -149,7 +151,7 @@ table 50004 "Stock Request Header"
                 ValidateShortcutDimCode(1, "Shortcut Dimension 1 Code");
             end;
         }
-        field(102; "Shortcut Dimension 2 Code"; Code[20])
+        field(16; "Shortcut Dimension 2 Code"; Code[20])
         {
             Caption = 'Requisition Department';
             CaptionClass = '1,2,2';
@@ -161,7 +163,7 @@ table 50004 "Stock Request Header"
                 ValidateShortcutDimCode(2, "Shortcut Dimension 2 Code");
             end;
         }
-        field(105; "Customer No."; Code[20])
+        field(17; "Customer No."; Code[20])
         {
             TableRelation = Customer."No.";
             trigger OnValidate()
@@ -175,13 +177,13 @@ table 50004 "Stock Request Header"
 
             end;
         }
-        field(106; "Customer Name"; Text[100])
+        field(18; "Customer Name"; Text[100])
         {
         }
-        field(107; "Ticket No."; code[50])
+        field(19; "Ticket No."; code[50])
         {
         }
-        field(480; "Dimension Set ID"; Integer)
+        field(20; "Dimension Set ID"; Integer)
         {
             Caption = 'Dimension Set ID';
             Editable = false;
@@ -278,7 +280,6 @@ table 50004 "Stock Request Header"
             if BuyBackSalesLinesExist then
                 UpdateAllLineDim("Dimension Set ID", OldDimSetID);
         end;
-
     end;
 
     procedure ShowDocDim()
@@ -300,7 +301,6 @@ table 50004 "Stock Request Header"
 
     procedure UpdateAllLineDim(NewParentDimSetID: Integer; OldParentDimSetID: Integer)
     var
-        ATOLink: Record "Assemble-to-Order Link";
         NewDimSetID: Integer;
         ShippedReceivedItemLineDimChangeConfirmed: Boolean;
     begin

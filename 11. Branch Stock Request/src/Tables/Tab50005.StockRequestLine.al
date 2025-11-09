@@ -5,11 +5,9 @@ table 50005 "Stock Request Line"
 
     fields
     {
-
         field(1; "Document No."; Code[20])
         {
             Caption = 'Document No.';
-            // TableRelation = "InStore Stock Req. Header".No.;
         }
         field(2; "Line No."; Integer)
         {
@@ -69,11 +67,11 @@ table 50005 "Stock Request Line"
                     TestStatusOpen;
             end;
         }
-        field(13; Description; Text[100])
+        field(6; Description; Text[100])
         {
             Caption = 'Description';
         }
-        field(16; "Quantity (Base)"; Decimal)
+        field(7; "Quantity (Base)"; Decimal)
         {
             Caption = 'Quantity (Base)';
             DecimalPlaces = 0 : 5;
@@ -87,14 +85,14 @@ table 50005 "Stock Request Line"
                 VALIDATE(Quantity, "Quantity (Base)");
             end;
         }
-        field(22; "Qty. per Unit of Measure"; Decimal)
+        field(8; "Qty. per Unit of Measure"; Decimal)
         {
             Caption = 'Qty. per Unit of Measure';
             DecimalPlaces = 0 : 5;
             Editable = false;
             InitValue = 1;
         }
-        field(23; "Unit of Measure Code"; Code[10])
+        field(9; "Unit of Measure Code"; Code[10])
         {
             Caption = 'Unit of Measure Code';
             TableRelation = "Item Unit of Measure".Code WHERE("Item No." = FIELD("Item No."));
@@ -118,7 +116,7 @@ table 50005 "Stock Request Line"
                 VALIDATE(Quantity);
             end;
         }
-        field(30; "Variant Code"; Code[10])
+        field(10; "Variant Code"; Code[10])
         {
             Caption = 'Variant Code';
             TableRelation = "Item Variant".Code WHERE("Item No." = FIELD("Item No."));
@@ -138,11 +136,11 @@ table 50005 "Stock Request Line"
                 "Description 2" := ItemVariant."Description 2";
             end;
         }
-        field(32; "Description 2"; Text[50])
+        field(11; "Description 2"; Text[50])
         {
             Caption = 'Description 2';
         }
-        field(33; "Allocated Quantity"; Decimal)
+        field(12; "Allocated Quantity"; Decimal)
         {
             Caption = 'Allocated Quantity';
             trigger OnValidate()
@@ -151,19 +149,19 @@ table 50005 "Stock Request Line"
                     Error('you can not enter allocated qty to more than qty.');
             end;
         }
-        field(34; "Transfer Quantity"; Decimal)
+        field(13; "Transfer Quantity"; Decimal)
         {
             Caption = 'Request Quantity';
         }
-        field(35; "Remarks"; Text[100])
+        field(14; "Remarks"; Text[100])
         {
             Caption = 'Remarks';
         }
-        field(36; "Transfer Order Created"; Boolean)
+        field(15; "Transfer Order Created"; Boolean)
         {
             Caption = 'Transfer Order Created';
         }
-        field(118; "Shortcut Dimension 1 Code"; Code[20])
+        field(16; "Shortcut Dimension 1 Code"; Code[20])
         {
 
             CaptionClass = '1,2,1';
@@ -176,7 +174,7 @@ table 50005 "Stock Request Line"
                 ValidateShortcutDimCode(1, "Shortcut Dimension 1 Code");
             end;
         }
-        field(119; "Shortcut Dimension 2 Code"; Code[20])
+        field(17; "Shortcut Dimension 2 Code"; Code[20])
         {
             CaptionClass = '1,2,2';
             Editable = false;
@@ -189,7 +187,7 @@ table 50005 "Stock Request Line"
             end;
         }
 
-        field(480; "Dimension Set ID"; Integer)
+        field(18; "Dimension Set ID"; Integer)
         {
             Caption = 'Dimension Set ID';
             Editable = false;
@@ -284,8 +282,7 @@ table 50005 "Stock Request Line"
         TESTFIELD("Line No.");
         OldDimSetID := "Dimension Set ID";
 
-        "Dimension Set ID" :=
-          DimMgt.EditDimensionSet("Dimension Set ID", StrSubstNo('%1 %2 %3', "Document No.", "Line No."));
+        "Dimension Set ID" := DimMgt.EditDimensionSet("Dimension Set ID", StrSubstNo('%1 %2 %3', "Document No.", "Line No."));
 
         DimMgt.UpdateGlobalDimFromDimSetID("Dimension Set ID", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code");
 
