@@ -38,6 +38,13 @@ tableextension 50001 TransferLineExt extends "Transfer Line"
                 end;
             end;
         }
+        modify("Transfer-from Code")
+        {
+            trigger OnAfterValidate()
+            begin
+                TransferInvtlocationCheck();
+            end;
+        }
     }
 
     keys
@@ -50,6 +57,11 @@ tableextension 50001 TransferLineExt extends "Transfer Line"
         // Add changes to field groups here
     }
 
-    var
-        myInt: Integer;
+
+    local procedure TransferInvtlocationCheck()
+    begin
+        Rec.CalcFields("Available Qty");
+        if (Rec."Available Qty" <= 0) then
+            Error('In Transfer Order Line with Item No. %1, Inventory is not available for %2.', Rec."Item No.", Rec."Transfer-from Code");
+    end;
 }

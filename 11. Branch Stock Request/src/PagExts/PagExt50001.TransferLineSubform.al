@@ -9,6 +9,15 @@ pageextension 50001 TransferLineSubformExt extends "Transfer Order Subform"
             {
                 ApplicationArea = All;
             }
+            field("STR_ITEM No."; Rec."STR_ITEM No.")
+            {
+                ApplicationArea = All;
+                trigger OnValidate()
+                begin
+                    CurrPage.SaveRecord();
+                    CurrPage.Update();
+                end;
+            }
         }
     }
 
@@ -16,7 +25,4 @@ pageextension 50001 TransferLineSubformExt extends "Transfer Order Subform"
     {
         // Add changes to page actions here
     }
-
-    var
-        myInt: Integer;
 }
