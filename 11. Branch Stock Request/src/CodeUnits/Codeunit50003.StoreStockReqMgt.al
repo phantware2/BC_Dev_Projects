@@ -48,11 +48,12 @@ codeunit 50003 "Store Stock Req Mgt"
                 StockReqLine.Modify();
             until StockReqLine.Next() = 0;
         end;
-        if xStockReHeader."Req. Status" <> xStockReHeader."Req. Status"::Accepted then begin
-            xStockReHeader."Req. Status" := xStockReHeader."Req. Status"::Accepted;
-            xStockReHeader."Reference Type" := xStockReHeader."Reference Type"::Transfer;
-            xStockReHeader."Reference No." := TransferHeader."No.";
-            xStockReHeader.Modify();
-        end;
+        if xStockReHeader."Req. Status" <> xStockReHeader."Req. Status"::Accepted then
+            if StockReqLine."Transfer Order Created" <> false then begin
+                xStockReHeader."Req. Status" := xStockReHeader."Req. Status"::Accepted;
+                xStockReHeader."Reference Type" := xStockReHeader."Reference Type"::Transfer;
+                xStockReHeader."Reference No." := TransferHeader."No.";
+                xStockReHeader.Modify();
+            end;
     end;
 }

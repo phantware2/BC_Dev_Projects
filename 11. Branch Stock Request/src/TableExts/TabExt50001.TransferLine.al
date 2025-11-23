@@ -38,6 +38,22 @@ tableextension 50001 TransferLineExt extends "Transfer Line"
                 end;
             end;
         }
+        modify("Item No.")
+        {
+            trigger OnAfterValidate()
+            begin
+                TransferInvtlocationCheck();
+                if Rec."Item No." <> '' then
+                    Rec."STR_ITEM No." := Rec."Item No.";
+            end;
+        }
+        modify(Quantity)
+        {
+            trigger OnBeforeValidate()
+            begin
+                TransferInvtlocationCheck();
+            end;
+        }
         modify("Transfer-from Code")
         {
             trigger OnAfterValidate()
