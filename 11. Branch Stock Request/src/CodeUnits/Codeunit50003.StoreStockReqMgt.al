@@ -34,6 +34,7 @@ codeunit 50003 "Store Stock Req Mgt"
             repeat
                 TransferLine.Init();
                 TransferLine.Validate("Document No.", TransferHeader."No.");
+                TransferLine.Validate("SG_B2B No.", StockReqLine."Item No.");
                 TransferLine.Validate("Item No.", StockReqLine."Item No.");
                 TransferLine.Validate(Quantity, StockReqLine."Allocated Quantity");
                 TransferLine.Validate("Unit of Measure Code", StockReqLine."Unit of Measure Code");
@@ -47,9 +48,11 @@ codeunit 50003 "Store Stock Req Mgt"
                 StockReqLine.Modify();
             until StockReqLine.Next() = 0;
         end;
-        xStockReHeader."Req. Status" := xStockReHeader."Req. Status"::Accepted;
-        xStockReHeader."Reference Type" := xStockReHeader."Reference Type"::Transfer;
-        xStockReHeader."Reference No." := TransferHeader."No.";
-        xStockReHeader.Modify();
+        if xStockReHeader."Req. Status" <> xStockReHeader."Req. Status"::Accepted then begin
+            xStockReHeader."Req. Status" := xStockReHeader."Req. Status"::Accepted;
+            xStockReHeader."Reference Type" := xStockReHeader."Reference Type"::Transfer;
+            xStockReHeader."Reference No." := TransferHeader."No.";
+            xStockReHeader.Modify();
+        end;
     end;
 }

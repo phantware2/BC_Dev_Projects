@@ -115,7 +115,7 @@ page 50010 "Approved Stock Request"
                     TransRcptHeader.SETCURRENTKEY("No.");
                     TransRcptHeader.SETRANGE("No.", Rec."Reference No.");
                     IF TransRcptHeader.FIND('-') THEN
-                        PAGE.RUN(5745, TransRcptHeader);
+                        PAGE.RUN(5740, TransRcptHeader);
                 END;
             }
             action(CreateTransferOrder)
