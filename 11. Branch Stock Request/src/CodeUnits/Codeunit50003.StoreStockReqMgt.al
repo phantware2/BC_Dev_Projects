@@ -34,7 +34,7 @@ codeunit 50003 "Store Stock Req Mgt"
             repeat
                 TransferLine.Init();
                 TransferLine.Validate("Document No.", TransferHeader."No.");
-                TransferLine.Validate("SG_B2B No.", StockReqLine."Item No.");
+                // TransferLine.Validate("SG_B2B No.", StockReqLine."Item No.");
                 TransferLine.Validate("Item No.", StockReqLine."Item No.");
                 TransferLine.Validate(Quantity, StockReqLine."Allocated Quantity");
                 TransferLine.Validate("Unit of Measure Code", StockReqLine."Unit of Measure Code");
