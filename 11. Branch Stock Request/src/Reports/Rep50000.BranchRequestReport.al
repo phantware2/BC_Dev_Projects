@@ -1,4 +1,4 @@
-report 50000 "Branch Request"
+report 50000 "Branch Request Report"
 {
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
