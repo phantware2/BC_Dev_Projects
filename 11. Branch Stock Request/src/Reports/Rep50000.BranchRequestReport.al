@@ -8,43 +8,38 @@ report 50000 "Branch Request Report"
     {
         dataitem("Stock Request Header"; "Stock Request Header")
         {
-            dataitemtableview = sorting("No.");
+            DataItemTableView = sorting("No.", "Store No.") order(ascending);
+            RequestFilterFields = "Document Date", "Store No.";
+            PrintOnlyIfDetail = true;
             column(No; "No.")
             {
-                IncludeCaption = true;
             }
             column(StoreNo; "Store No.")
             {
-                IncludeCaption = true;
             }
             column(DocumentDate; "Document Date")
             {
-                IncludeCaption = true;
             }
             column(ReferenceNo; "Reference No.")
             {
-                IncludeCaption = true;
             }
             column(FromStoreNo; "From Store No.")
             {
-                IncludeCaption = true;
             }
             dataitem("Stock Request Line"; "Stock Request Line")
             {
+                DataItemLinkReference = "Stock Request Header";
                 DataItemLink = "Document No." = field("No.");
-                DataItemTableView = sorting("Line No.");
+                DataItemTableView = sorting("Document No.", "Line No.") order(ascending);
 
                 column(ItemNo; "Item No.")
                 {
-                    IncludeCaption = true;
                 }
                 column(Description; Description)
                 {
-                    IncludeCaption = true;
                 }
                 column(Quantity; Quantity)
                 {
-                    IncludeCaption = true;
                 }
             }
             dataitem("Transfer Header"; "Transfer Header")
@@ -54,29 +49,24 @@ report 50000 "Branch Request Report"
 
                 column(TransferNo; "No.")
                 {
-                    IncludeCaption = true;
                 }
                 column(Transfer_from_Code; "Transfer-from Code")
                 {
-                    IncludeCaption = true;
                 }
                 column(Transfer_to_Code; "Transfer-to Code")
                 {
-                    IncludeCaption = true;
                 }
-            }
-            dataitem("Transfer Line"; "Transfer Line")
-            {
-                DataItemLink = "Document No." = field("No.");
-                DataItemTableView = sorting("Line No.");
+                dataitem("Transfer Line"; "Transfer Line")
+                {
+                    DataItemLink = "Document No." = field("No.");
+                    DataItemTableView = sorting("Document No.", "Line No.", "Item No.") order(ascending);
 
-                column(TransferLineItemNo; "Item No.")
-                {
-                    IncludeCaption = true;
-                }
-                column(TransferLineQuantity; Quantity)
-                {
-                    IncludeCaption = true;
+                    column(TransferLineItemNo; "Item No.")
+                    {
+                    }
+                    column(TransferLineQuantity; Quantity)
+                    {
+                    }
                 }
             }
         }
@@ -118,7 +108,7 @@ report 50000 "Branch Request Report"
         layout(BranchStockRequestReport)
         {
             Type = Excel;
-            LayoutFile = 'BranchStockRequestReport.xlsx';
+            LayoutFile = './11. Branch Stock Request/src/layouts/BranchStockRequestReport.xlsx';
         }
     }
 
