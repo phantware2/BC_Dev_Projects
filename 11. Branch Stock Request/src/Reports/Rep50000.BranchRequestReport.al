@@ -41,31 +41,33 @@ report 50000 "Branch Request Report"
                 column(Quantity; Quantity)
                 {
                 }
-            }
-            dataitem("Transfer Header"; "Transfer Header")
-            {
-                DataItemLink = "No." = field("Reference No.");
-                DataItemTableView = sorting("No.");
 
-                column(TransferNo; "No.")
+                dataitem("Transfer Header"; "Transfer Header")
                 {
-                }
-                column(Transfer_from_Code; "Transfer-from Code")
-                {
-                }
-                column(Transfer_to_Code; "Transfer-to Code")
-                {
-                }
-                dataitem("Transfer Line"; "Transfer Line")
-                {
-                    DataItemLink = "Document No." = field("No.");
-                    DataItemTableView = sorting("Document No.", "Line No.", "Item No.") order(ascending);
+                    DataItemLink = "No." = field("Reference No.");
+                    DataItemTableView = sorting("No.");
+                    DataItemLinkReference = "Stock Request Header";
 
-                    column(TransferLineItemNo; "Item No.")
+                    column(TransferNo; "No.")
                     {
                     }
-                    column(TransferLineQuantity; Quantity)
+                    column(Transfer_from_Code; "Transfer-from Code")
                     {
+                    }
+                    column(Transfer_to_Code; "Transfer-to Code")
+                    {
+                    }
+                    dataitem("Transfer Line"; "Transfer Line")
+                    {
+                        DataItemLink = "Document No." = field("No.");
+                        DataItemTableView = sorting("Document No.", "Line No.", "Item No.") order(ascending);
+
+                        column(TransferLineItemNo; "Item No.")
+                        {
+                        }
+                        column(TransferLineQuantity; Quantity)
+                        {
+                        }
                     }
                 }
             }
