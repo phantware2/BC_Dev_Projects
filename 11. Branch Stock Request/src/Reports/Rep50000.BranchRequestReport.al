@@ -11,20 +11,29 @@ report 50000 "Branch Request Report"
             DataItemTableView = sorting("No.", "Store No.") order(ascending);
             RequestFilterFields = "Document Date", "Store No.";
             PrintOnlyIfDetail = true;
-            column(No; "No.")
+            column(Stock_Request_No; "No.")
             {
+                Caption = 'Stock Request No.';
+                IncludeCaption = true;
             }
-            column(StoreNo; "Store No.")
+            column("StoreNo"; "Store No.")
             {
+                g
+                Caption = 'Requested by Branch';
+                IncludeCaption = true;
             }
             column(DocumentDate; "Document Date")
             {
+                Caption = 'Date of Request';
+                IncludeCaption = true;
             }
             column(ReferenceNo; "Reference No.")
             {
             }
             column(FromStoreNo; "From Store No.")
             {
+                Caption = 'Requested to Branch';
+                IncludeCaption = true;
             }
             dataitem("Stock Request Line"; "Stock Request Line")
             {
@@ -37,19 +46,27 @@ report 50000 "Branch Request Report"
                 }
                 column(Description; Description)
                 {
+                    Caption = 'Item Description';
+                    IncludeCaption = true;
                 }
-                column(Quantity; Quantity)
+                column(Quantity; abs(Quantity))
                 {
+                    Caption = 'Requested Quantity';
                 }
 
-                dataitem("Transfer Header"; "Transfer Header")
+                dataitem("Transfer Shipment Header"; "Transfer Shipment Header")
                 {
-                    DataItemLink = "No." = field("Reference No.");
+                    DataItemLink = "Transfer Order No." = field("Reference No.");
                     DataItemTableView = sorting("No.");
                     DataItemLinkReference = "Stock Request Header";
 
                     column(TransferNo; "No.")
                     {
+                    }
+                    column(Posting_Date; "Posting Date")
+                    {
+                        Caption = 'Processed Date';
+                        IncludeCaption = true;
                     }
                     column(Transfer_from_Code; "Transfer-from Code")
                     {
@@ -57,7 +74,7 @@ report 50000 "Branch Request Report"
                     column(Transfer_to_Code; "Transfer-to Code")
                     {
                     }
-                    dataitem("Transfer Line"; "Transfer Line")
+                    dataitem("Transfer Shipment Line"; "Transfer Shipment Line")
                     {
                         DataItemLink = "Document No." = field("No.");
                         DataItemTableView = sorting("Document No.", "Line No.", "Item No.") order(ascending);
@@ -65,8 +82,9 @@ report 50000 "Branch Request Report"
                         column(TransferLineItemNo; "Item No.")
                         {
                         }
-                        column(TransferLineQuantity; Quantity)
+                        column(TransferLineQuantity; abs(Quantity))
                         {
+                            Caption = 'Processed Quantity';
                         }
                     }
                 }
