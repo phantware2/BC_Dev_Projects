@@ -54,7 +54,7 @@ report 50001 "Customer Feedback Report"
         layout(CustomerFeedback)
         {
             Type = RDLC;
-            LayoutFile = 'CustomerFeedback.rdl';
+            LayoutFile = './3. Customer Feedback Collector/src/layouts/CustomerFeedback.rdl';
         }
     }
 
