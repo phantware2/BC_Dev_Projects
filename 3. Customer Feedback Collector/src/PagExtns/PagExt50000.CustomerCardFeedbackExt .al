@@ -23,7 +23,7 @@ pageextension 50002 CustomerCardFeedbackExt extends "Customer Card"
                     CustomerRec: Record Customer;
                 begin
                     CustomerRec := Rec;
-                    // PAGE.RunModal(PAGE::"Customer Feedback Page", CustomerRec);
+                    PAGE.RunModal(PAGE::"Customer Feedback Page", CustomerRec);
                 end;
             }
         }
