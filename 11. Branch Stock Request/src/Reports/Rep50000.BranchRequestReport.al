@@ -2,7 +2,7 @@ report 50000 "Branch Request Report"
 {
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
-    DefaultRenderingLayout = BranchStockRequestReport;
+    DefaultRenderingLayout = BranchStockRequestReportRDLC;
 
     dataset
     {
@@ -11,14 +11,13 @@ report 50000 "Branch Request Report"
             DataItemTableView = sorting("No.", "Store No.") order(ascending);
             RequestFilterFields = "Document Date", "Store No.";
             PrintOnlyIfDetail = true;
-            column(Stock_Request_No; "No.")
+            column(No; "No.")
             {
                 Caption = 'Stock Request No.';
                 IncludeCaption = true;
             }
             column("StoreNo"; "Store No.")
             {
-                g
                 Caption = 'Requested by Branch';
                 IncludeCaption = true;
             }
@@ -125,10 +124,15 @@ report 50000 "Branch Request Report"
 
     rendering
     {
-        layout(BranchStockRequestReport)
+        // layout(BranchStockRequestReport)
+        // {
+        //     Type = Excel;
+        //     LayoutFile = './11. Branch Stock Request/src/layouts/BranchStockRequestReport.xlsx';
+        // }
+        layout(BranchStockRequestReportRDLC)
         {
-            Type = Excel;
-            LayoutFile = './11. Branch Stock Request/src/layouts/BranchStockRequestReport.xlsx';
+            Type = RDLC;
+            LayoutFile = './11. Branch Stock Request/src/layouts/BranchStockRequestReport.rdl';
         }
     }
 
