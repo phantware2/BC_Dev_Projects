@@ -1,4 +1,4 @@
-# Warranty Management Extension for Business Central (AL)
+# Product Warranty Management
 
 ## Overview
 
@@ -9,7 +9,7 @@ Design a Warranty table linked to Items to track product warranties. Build pages
 - Logic to **monitor warranty expiry dates**.
 - **Notifications** sent to relevant users when warranties are close to expiring.
 
----
+**Skills covered:** Relationships, date calculations, notifications.
 
 ## Features
 
@@ -35,8 +35,6 @@ Warranties can be registered in two ways:
 - **Manually** using a Warranty Registration Page.
 
 The logic calculates the _Warranty Expiry Date_ based on the Warranty Period set on the Item Card.
-
----
 
 ## Pages Included
 
