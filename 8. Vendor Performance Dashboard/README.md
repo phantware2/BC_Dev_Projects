@@ -10,6 +10,8 @@ Add fields to track vendor ratings, such as delivery speed and quality scores. C
 - A **FactBox** on the Vendor Card to display average rating information.
 - A **Vendor Rating Summary Report** highlighting top and bottom-performing vendors.
 
+**Skills covered:** Factboxes, data aggregation, reporting.
+
 ## Features
 
 ### 1. **Vendor Rating Fields**
