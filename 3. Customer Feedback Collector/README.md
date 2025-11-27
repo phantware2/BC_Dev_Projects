@@ -6,6 +6,8 @@ This project extends Microsoft Dynamics 365 Business Central to help sales teams
 
 Extend the Customer table by adding a “Feedback” field. Create a page action for salespeople to capture customer feedback and develop a report listing all customers who’ve provided feedback for follow-up.
 
+**Skills covered:** Table and page extensions, simple reporting.
+
 ## Features
 
 - **Customer Table Extension:**  

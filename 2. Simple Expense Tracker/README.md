@@ -6,7 +6,7 @@ This AL project adds an **Expense** table to Microsoft Dynamics 365 Business Cen
 
 Add an expense table to track office expenditures with list and card pages for easy data entry. Implement validation logic — for example, prevent saving an entry if the amount exceeds 10,000 without manager approval.
 
-Skills covered: Data validation, field triggers, workflow basics.
+**Skills covered:** Data validation, field triggers, workflow basics.
 
 ## Features
 
