@@ -2,6 +2,7 @@ page 50009 "Approved Stock Request List"
 {
     CardPageID = "Approved Stock Request";
     Editable = false;
+    Caption = 'Approved Branch Stock Request List';
     ApplicationArea = All;
     PageType = List;
     UsageCategory = Lists;

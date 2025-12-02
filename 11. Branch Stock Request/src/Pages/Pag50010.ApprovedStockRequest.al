@@ -1,6 +1,6 @@
 page 50010 "Approved Stock Request"
 {
-    Caption = 'Approved Stock Request';
+    Caption = 'Approved Branch Stock Request';
     PageType = Document;
     DeleteAllowed = false;
     InsertAllowed = false;

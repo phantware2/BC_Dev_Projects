@@ -1,6 +1,6 @@
 page 50007 "Stock Request"
 {
-    Caption = 'Stock Request';
+    Caption = 'Branch Stock Request';
     PageType = Document;
     RefreshOnActivate = true;
     SourceTable = "Stock Request Header";
