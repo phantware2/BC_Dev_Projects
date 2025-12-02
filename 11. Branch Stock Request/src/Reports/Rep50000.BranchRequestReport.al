@@ -1,6 +1,7 @@
 report 50000 "Branch Request Report"
 {
     UsageCategory = ReportsAndAnalysis;
+    Caption = 'Branch Stock Request Report';
     ApplicationArea = All;
     DefaultRenderingLayout = BranchStockRequestReportRDLC;
 
@@ -90,37 +91,37 @@ report 50000 "Branch Request Report"
             }
         }
     }
-    requestpage
-    {
-        AboutTitle = 'Teaching tip title';
-        AboutText = 'Teaching tip content';
-        layout
-        {
-            area(Content)
-            {
-                group(Group)
-                {
-                    field(MyInt; myInt)
-                    {
-                        ApplicationArea = All;
-                        Caption = 'My Integer';
-                        ToolTip = 'Enter an integer value.';
-                    }
-                }
-            }
-        }
+    // requestpage
+    // {
+    //     AboutTitle = 'Teaching tip title';
+    //     AboutText = 'Teaching tip content';
+    //     layout
+    //     {
+    //         area(Content)
+    //         {
+    //             group(Group)
+    //             {
+    //                 field(MyInt; myInt)
+    //                 {
+    //                     ApplicationArea = All;
+    //                     Caption = 'My Integer';
+    //                     ToolTip = 'Enter an integer value.';
+    //                 }
+    //             }
+    //         }
+    //     }
 
-        actions
-        {
-            area(processing)
-            {
-                action(LayoutName)
-                {
+    //     actions
+    //     {
+    //         area(processing)
+    //         {
+    //             action(LayoutName)
+    //             {
 
-                }
-            }
-        }
-    }
+    //             }
+    //         }
+    //     }
+    // }
 
     rendering
     {
