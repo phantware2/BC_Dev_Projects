@@ -33,6 +33,7 @@ codeunit 50003 "Store Stock Req Mgt"
 
             repeat
                 TransferLine.Init();
+                TransferLine.Validate("Line No.", StockReqLine."Line No.");
                 TransferLine.Validate("Document No.", TransferHeader."No.");
                 TransferLine.Validate("Item No.", StockReqLine."Item No.");
                 TransferLine.Validate(Quantity, StockReqLine."Allocated Quantity");
@@ -42,9 +43,9 @@ codeunit 50003 "Store Stock Req Mgt"
                     TransferLine.Validate("Shortcut Dimension 1 Code", StockReqLine."Shortcut Dimension 1 Code");
                 if StockReqLine."Shortcut Dimension 2 Code" <> '' then
                     TransferLine.Validate("Shortcut Dimension 2 Code", StockReqLine."Shortcut Dimension 2 Code");
-                TransferLine.Insert();
                 StockReqLine."Transfer Order Created" := true;
-                StockReqLine.Modify();
+                TransferLine.Insert(true);
+            // StockReqLine.Modify();
             until StockReqLine.Next() = 0;
         end;
         if xStockReHeader."Req. Status" <> xStockReHeader."Req. Status"::Accepted then
