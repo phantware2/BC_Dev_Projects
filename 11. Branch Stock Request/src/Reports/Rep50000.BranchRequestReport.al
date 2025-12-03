@@ -35,6 +35,9 @@ report 50000 "Branch Request Report"
                 Caption = 'Requested to Branch';
                 IncludeCaption = true;
             }
+            column(NoOfDays; NoOfDays)
+            {
+            }
             dataitem("Stock Request Line"; "Stock Request Line")
             {
                 DataItemLinkReference = "Stock Request Header";
@@ -86,43 +89,33 @@ report 50000 "Branch Request Report"
                         {
                             Caption = 'Processed Quantity';
                         }
+
+                        trigger OnAfterGetRecord()
+
+                        begin
+                            Clear(NoOfDays);
+                            if "Stock Request Line".Quantity = "Transfer Shipment Line".Quantity then
+                                NoOfDays := 'Completed'
+                            else
+                                NoOfDays := Format(Today() - "Stock Request Header"."Document Date");
+                        end;
                     }
                 }
             }
+
+            trigger OnAfterGetRecord()
+            begin
+                // Clear(PostingDate);
+                // "Stock Request Header".Reset();
+                // "Stock Request Header".Get("No.");
+                // if "Stock Request Header".FindFirst() then
+                // PostingDate := "Stock Request Header"."Document Date";
+                // // NoOfDays := 0;
+                // // Calculate No of Days between Document Date and Today
+                // NoOfDays := Format(Today() - PostingDate);
+            end;
         }
     }
-    // requestpage
-    // {
-    //     AboutTitle = 'Teaching tip title';
-    //     AboutText = 'Teaching tip content';
-    //     layout
-    //     {
-    //         area(Content)
-    //         {
-    //             group(Group)
-    //             {
-    //                 field(MyInt; myInt)
-    //                 {
-    //                     ApplicationArea = All;
-    //                     Caption = 'My Integer';
-    //                     ToolTip = 'Enter an integer value.';
-    //                 }
-    //             }
-    //         }
-    //     }
-
-    //     actions
-    //     {
-    //         area(processing)
-    //         {
-    //             action(LayoutName)
-    //             {
-
-    //             }
-    //         }
-    //     }
-    // }
-
     rendering
     {
         // layout(BranchStockRequestReport)
@@ -136,7 +129,7 @@ report 50000 "Branch Request Report"
             LayoutFile = './11. Branch Stock Request/src/layouts/BranchStockRequestReport.rdl';
         }
     }
-
     var
-        myInt: Integer;
+        PostingDate: Date;
+        NoOfDays: Text[20];
 }
