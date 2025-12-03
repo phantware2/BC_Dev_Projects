@@ -178,7 +178,7 @@ page 50007 "Stock Request"
                 Action(SendforApproval)
                 {
                     ApplicationArea = All;
-                    Caption = 'Send for Approval';
+                    Caption = 'Send Approval Request';
                     Image = SendApprovalRequest;
                     Enabled = Rec.Status = Rec.Status::Open;
                     Promoted = True;
