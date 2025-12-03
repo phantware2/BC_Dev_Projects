@@ -11,7 +11,7 @@ report 50000 "Branch Request Report"
         {
             DataItemTableView = sorting("No.", "Store No.") order(ascending);
             RequestFilterFields = "Document Date", "Store No.";
-            PrintOnlyIfDetail = true;
+            // PrintOnlyIfDetail = true;
             column(No; "No.")
             {
                 Caption = 'Stock Request No.';
@@ -90,30 +90,52 @@ report 50000 "Branch Request Report"
                             Caption = 'Processed Quantity';
                         }
 
-                        trigger OnAfterGetRecord()
-
-                        begin
-                            Clear(NoOfDays);
-                            if "Stock Request Line".Quantity = "Transfer Shipment Line".Quantity then
-                                NoOfDays := 'Completed'
-                            else
-                                NoOfDays := Format(Today() - "Stock Request Header"."Document Date");
-                        end;
+                        // trigger OnAfterGetRecord()
+                        // begin
+                        //     Clear(NoOfDays);
+                        //     if "Stock Request Line".Quantity = "Transfer Shipment Line".Quantity then
+                        //         NoOfDays := 'Completed'
+                        //     else
+                        //         NoOfDays := Format("Stock Request Header"."Document Date" - Today());
+                        // end;
                     }
                 }
             }
 
             trigger OnAfterGetRecord()
+            var
+                StockRequestLine: Record "Stock Request Line";
+                TransferLine: Record "Transfer Shipment Line";
+                TotalTransferQty: Decimal;
+                TotalRequestedQty: Decimal;
             begin
-                // Clear(PostingDate);
-                // "Stock Request Header".Reset();
-                // "Stock Request Header".Get("No.");
-                // if "Stock Request Header".FindFirst() then
-                // PostingDate := "Stock Request Header"."Document Date";
-                // // NoOfDays := 0;
-                // // Calculate No of Days between Document Date and Today
-                // NoOfDays := Format(Today() - PostingDate);
+                Clear(NoOfDays);
+                // 1. Sum all requested qty for this Stock Request
+                TotalRequestedQty := 0;
+                TotalTransferQty := 0;
+
+                StockRequestLine.Reset();
+                StockRequestLine.SetRange("Document No.", "No.");
+                if StockRequestLine.FindSet() then
+                    repeat
+                        TotalRequestedQty := Abs(StockRequestLine.Quantity);
+                    until StockRequestLine.Next() = 0;
+
+                // 2. Sum all shipped qty linked to this Stock Request (via Reference No.)
+                TransferLine.Reset();
+                TransferLine.SetRange("Transfer Order No.", "Reference No.");
+                if TransferLine.FindSet() then
+                    repeat
+                        TotalTransferQty := Abs(TransferLine.Quantity);
+                    until TransferLine.Next() = 0;
+
+                // 3. Compare quantities
+                if TotalRequestedQty = TotalTransferQty then
+                    NoOfDays := 'Completed'
+                else
+                    NoOfDays := Format(Today - "Document Date");
             end;
+
         }
     }
     rendering
