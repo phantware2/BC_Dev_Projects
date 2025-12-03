@@ -89,15 +89,6 @@ report 50000 "Branch Request Report"
                         {
                             Caption = 'Processed Quantity';
                         }
-
-                        // trigger OnAfterGetRecord()
-                        // begin
-                        //     Clear(NoOfDays);
-                        //     if "Stock Request Line".Quantity = "Transfer Shipment Line".Quantity then
-                        //         NoOfDays := 'Completed'
-                        //     else
-                        //         NoOfDays := Format("Stock Request Header"."Document Date" - Today());
-                        // end;
                     }
                 }
             }
