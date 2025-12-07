@@ -58,6 +58,21 @@ page 50100 "XMLPort Sample"
 
                 end;
             }
+            action("XML Export")
+            {
+                ApplicationArea = All;
+                Image = Import;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+
+                RunObject = xmlport "XMLPort Sample XML";
+
+                trigger OnAction()
+                begin
+
+                end;
+            }
         }
     }
 }
