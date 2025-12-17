@@ -11,7 +11,7 @@ report 50000 "Branch Request Report"
         {
             DataItemTableView = sorting("No.", "Store No.") order(ascending);
             RequestFilterFields = "Document Date", "Store No.";
-            // PrintOnlyIfDetail = true;
+            PrintOnlyIfDetail = true;
             column(No; "No.")
             {
                 Caption = 'Stock Request No.';
@@ -131,11 +131,6 @@ report 50000 "Branch Request Report"
     }
     rendering
     {
-        // layout(BranchStockRequestReport)
-        // {
-        //     Type = Excel;
-        //     LayoutFile = './11. Branch Stock Request/src/layouts/BranchStockRequestReport.xlsx';
-        // }
         layout(BranchStockRequestReportRDLC)
         {
             Type = RDLC;
