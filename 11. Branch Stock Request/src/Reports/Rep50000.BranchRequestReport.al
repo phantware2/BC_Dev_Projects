@@ -44,6 +44,7 @@ report 50000 "Branch Request Report"
                 DataItemLink = "Transfer Order No." = field("Reference No.");
                 DataItemTableView = sorting("No.");
                 DataItemLinkReference = "Stock Request Header";
+                PrintOnlyIfDetail = true;
 
                 column(TransferNo; "No.")
                 {
