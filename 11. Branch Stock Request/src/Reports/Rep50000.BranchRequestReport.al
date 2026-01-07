@@ -38,7 +38,9 @@ report 50000 "Branch Request Report"
             column(NoOfDays; NoOfDays)
             {
             }
-
+            column(TotalTransferQty; TotalTransferQty)
+            {
+            }
             dataitem("Stock Request Line"; "Stock Request Line")
             {
                 DataItemLinkReference = "Stock Request Header";
@@ -57,16 +59,14 @@ report 50000 "Branch Request Report"
                 {
                     Caption = 'Requested Quantity';
                 }
-
-
             }
 
             trigger OnAfterGetRecord()
             var
                 StockRequestLine: Record "Stock Request Line";
                 TransferLine: Record "Transfer Shipment Line";
-                TotalTransferQty: Decimal;
-                TotalRequestedQty: Decimal;
+
+
             begin
                 Clear(NoOfDays);
                 // 1. Sum all requested qty for this Stock Request
@@ -108,4 +108,6 @@ report 50000 "Branch Request Report"
     var
         PostingDate: Date;
         NoOfDays: Text[20];
+        TotalRequestedQty: Decimal;
+        TotalTransferQty: Decimal;
 }
