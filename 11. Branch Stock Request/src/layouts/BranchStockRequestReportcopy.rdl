@@ -11,7 +11,7 @@
       <am:Name>MSRB</am:Name>
       <am:Version>15.1.30001.02</am:Version>
     </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2026-01-06T10:40:05.1672899Z</am:LastModifiedTimestamp>
+    <am:LastModifiedTimestamp>2026-01-07T08:26:25.6024254Z</am:LastModifiedTimestamp>
   </am:AuthoringMetadata>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
@@ -24,6 +24,64 @@
       <rd:DataSourceID>342ffce4-044d-4ae6-adf0-2af1b0ede133</rd:DataSourceID>
     </DataSource>
   </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+      <Fields>
+        <Field Name="No">
+          <DataField>No</DataField>
+        </Field>
+        <Field Name="StoreNo">
+          <DataField>StoreNo</DataField>
+        </Field>
+        <Field Name="DocumentDate">
+          <DataField>DocumentDate</DataField>
+        </Field>
+        <Field Name="ReferenceNo">
+          <DataField>ReferenceNo</DataField>
+        </Field>
+        <Field Name="FromStoreNo">
+          <DataField>FromStoreNo</DataField>
+        </Field>
+        <Field Name="NoOfDays">
+          <DataField>NoOfDays</DataField>
+        </Field>
+        <Field Name="TransferNo">
+          <DataField>TransferNo</DataField>
+        </Field>
+        <Field Name="PostingDate">
+          <DataField>PostingDate</DataField>
+        </Field>
+        <Field Name="TransferFrom">
+          <DataField>TransferFrom</DataField>
+        </Field>
+        <Field Name="TransferTo">
+          <DataField>TransferTo</DataField>
+        </Field>
+        <Field Name="ItemNo">
+          <DataField>ItemNo</DataField>
+        </Field>
+        <Field Name="Description">
+          <DataField>Description</DataField>
+        </Field>
+        <Field Name="RequestedQty">
+          <DataField>RequestedQty</DataField>
+        </Field>
+        <Field Name="RequestedQtyFormat">
+          <DataField>RequestedQtyFormat</DataField>
+        </Field>
+        <Field Name="ProcessedQty">
+          <DataField>ProcessedQty</DataField>
+        </Field>
+        <Field Name="ProcessedQtyFormat">
+          <DataField>ProcessedQtyFormat</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -626,7 +684,6 @@
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <rd:Selected>true</rd:Selected>
                         <Textbox Name="No">
                           <rd:DefaultName>No</rd:DefaultName>
                           <CanGrow>true</CanGrow>
@@ -1372,62 +1429,4 @@ End Function
 </Code>
   <Language>=User!Language</Language>
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Fields>
-        <Field Name="No">
-          <DataField>No</DataField>
-        </Field>
-        <Field Name="StoreNo">
-          <DataField>StoreNo</DataField>
-        </Field>
-        <Field Name="DocumentDate">
-          <DataField>DocumentDate</DataField>
-        </Field>
-        <Field Name="ReferenceNo">
-          <DataField>ReferenceNo</DataField>
-        </Field>
-        <Field Name="FromStoreNo">
-          <DataField>FromStoreNo</DataField>
-        </Field>
-        <Field Name="NoOfDays">
-          <DataField>NoOfDays</DataField>
-        </Field>
-        <Field Name="TransferNo">
-          <DataField>TransferNo</DataField>
-        </Field>
-        <Field Name="PostingDate">
-          <DataField>PostingDate</DataField>
-        </Field>
-        <Field Name="TransferFrom">
-          <DataField>TransferFrom</DataField>
-        </Field>
-        <Field Name="TransferTo">
-          <DataField>TransferTo</DataField>
-        </Field>
-        <Field Name="ItemNo">
-          <DataField>ItemNo</DataField>
-        </Field>
-        <Field Name="Description">
-          <DataField>Description</DataField>
-        </Field>
-        <Field Name="RequestedQty">
-          <DataField>RequestedQty</DataField>
-        </Field>
-        <Field Name="RequestedQtyFormat">
-          <DataField>RequestedQtyFormat</DataField>
-        </Field>
-        <Field Name="ProcessedQty">
-          <DataField>ProcessedQty</DataField>
-        </Field>
-        <Field Name="ProcessedQtyFormat">
-          <DataField>ProcessedQtyFormat</DataField>
-        </Field>
-      </Fields>
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-    </DataSet>
-  </DataSets>
 </Report>

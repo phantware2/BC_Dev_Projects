@@ -38,10 +38,6 @@ report 50000 "Branch Request Report"
             column(NoOfDays; NoOfDays)
             {
             }
-            column(TotalTransferQty; TotalTransferQty)
-            {
-                Caption = 'Processed Quantity';
-            }
             dataitem("Stock Request Line"; "Stock Request Line")
             {
                 DataItemLinkReference = "Stock Request Header";
@@ -60,10 +56,36 @@ report 50000 "Branch Request Report"
                 {
                     Caption = 'Requested Quantity';
                 }
+                column(TotalTransferQty; TotalTransferQty)
+                {
+                    Caption = 'Processed Quantity';
+                }
                 column(ProcessedDate; ProcessedDate)
                 {
                     Caption = 'Processed Date';
                 }
+                trigger OnAfterGetRecord()
+                var
+                    TransferLine: Record "Transfer Shipment Line";
+                    StockRequestHeader: Record "Stock Request Header";
+                begin
+                    clear(TotalTransferQty);
+                    StockRequestHeader.Reset();
+                    StockRequestHeader.SetRange("No.", "Document No.");
+                    if StockRequestHeader.FindFirst() then begin
+                        TransferLine.Reset();
+                        TransferLine.SetRange("Transfer Order No.", StockRequestHeader."Reference No.");
+                        TransferLine.SetRange("Item No.", "Item No.");
+                        TransferLine.SetRange("Line No.", "Line No.");
+                        if TransferLine.FindFirst() then begin
+                            //transfer line field
+                            // repeat
+                            TotalTransferQty := Abs(TransferLine.Quantity);
+                            // until TransferLine.Next() = 0;
+                        end;
+                    end;
+
+                end;
             }
 
             trigger OnAfterGetRecord()
@@ -74,6 +96,7 @@ report 50000 "Branch Request Report"
 
             begin
                 Clear(NoOfDays);
+                clear(ProcessedDate);
                 // 1. Sum all requested qty for this Stock Request
                 TotalRequestedQty := 0;
                 TotalTransferQty := 0;
@@ -86,15 +109,19 @@ report 50000 "Branch Request Report"
                     until StockRequestLine.Next() = 0;
 
                 // 2. Sum all shipped qty linked to this Stock Request (via Reference No.)
-                TransferLine.Reset();
                 TransferHeader.Reset();
                 TransferHeader.SetRange("Transfer Order No.", "Reference No.");
-                TransferLine.SetRange("Transfer Order No.", "Reference No.");
-                if TransferLine.FindSet() then
-                    repeat
-                        TotalTransferQty := Abs(TransferLine.Quantity);
-                        ProcessedDate := TransferHeader."Posting Date";
-                    until TransferLine.Next() = 0;
+                if TransferHeader.FindFirst() then begin
+                    ProcessedDate := TransferHeader."Posting Date";
+                    TransferLine.Reset();
+                    TransferLine.SetRange("Transfer Order No.", "Reference No.");
+                    if TransferLine.FindSet() then begin
+                        //transfer line field
+                        repeat
+                            TotalTransferQty := Abs(TransferLine.Quantity);
+                        until TransferLine.Next() = 0;
+                    end;
+                end;
 
                 // 3. Compare quantities
                 if TotalRequestedQty = TotalTransferQty then
